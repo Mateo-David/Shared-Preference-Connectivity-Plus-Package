@@ -1,8 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreference extends StatefulWidget {
-  SharedPreference({super.key});
+  const SharedPreference({super.key});
 
   @override
   State<SharedPreference> createState() => _SharedPreferenceState();
@@ -10,26 +12,32 @@ class SharedPreference extends StatefulWidget {
 
 class _SharedPreferenceState extends State<SharedPreference> {
   TextEditingController nameTextEditingController = TextEditingController();
-  var newValue = "No Value Available";
+  String noValue = "No Value Available";
 
-  static String KeyName = "name";
+  static const String KeyName = "name";
+ 
+  @override
+  void initState() {
+    super.initState();
+    getValue();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextFormField(
               controller: nameTextEditingController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   label: Text("Name"),
                   labelStyle: TextStyle(fontSize: 16, color: Colors.black)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             ElevatedButton(
@@ -38,24 +46,30 @@ class _SharedPreferenceState extends State<SharedPreference> {
 
                 prefs.setString(
                     KeyName, nameTextEditingController.text.toString());
+                nameTextEditingController.clear();
               },
-              child: Text(
+              child: const Text(
                 "Save",
                 style: TextStyle(fontSize: 20, color: Colors.black),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            // setState(() {
-              // Text(
-              //   newValue,
-              //   style: TextStyle(fontSize: 16, color: Colors.black),
-              // );
-            // }),
+            Text(
+              noValue,
+              style:const TextStyle(fontSize: 20, color: Colors.black),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  void getValue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var getName = prefs.getString(KeyName);
+    noValue = getName ?? "No Value Available";
+    setState(() {});
   }
 }
