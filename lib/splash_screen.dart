@@ -1,3 +1,4 @@
+  import 'package:connectivity_plus/connectivity_plus.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -14,12 +15,16 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen> {
   static const String KeyLogin = "Login";
+
+
   @override
   void initState() {
     super.initState();
 
     whereToGo();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

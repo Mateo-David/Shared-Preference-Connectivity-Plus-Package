@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preference/Shared%20Preference.dart';
+import 'package:get/get.dart';
+import 'package:shared_preference/connectivity%20plus/dependency_injection.dart';
 import 'package:shared_preference/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
+  DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {
@@ -11,10 +13,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
